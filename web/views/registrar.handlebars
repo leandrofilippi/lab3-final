@@ -1,0 +1,22 @@
+<body style="background: slategray;text-align: center">
+    <h1 style="text-align: center"> SPT - Sing In </h1>
+     {{#if err}}
+        <h2 style="text-align: center; color: firebrick">{{err}}</h2>
+        <br/>
+     {{/if}}
+    <form style="text-align: center " action="/procesar" method="post">
+        <label >Name user</label>
+        <input type="text" name="username" value="" />
+        <br/>
+        <label>Password</label>
+        <input type="password" name="pass" value="" />
+        <br/>
+        <label>Repeat password</label>
+        <input type="password" name="repass" value="" />
+        <br/>
+        <br/>
+        <input type="submit" value="Sing In" />
+    </form>
+    <br/>
+    <a href="/"> <button>Back</button> </a>
+</body>

@@ -1,0 +1,26 @@
+<body style="text-align: center; background: lightslategray">
+    <h1 style="font-family: 'Times New Roman', Times, serif"> HOME </h1>
+    <h2> List of Survey </h2>
+    <table border="2" style="margin: 0 auto; background: black; color:white; font-size: 25px">
+    <tr>
+    <td><strong>Name User</strong></td>
+    <td><strong>Name Survey</strong></td>
+    <td><strong>Hashtag</strong></td>
+    <td><strong>Duration (seconds)</strong></td>
+    <td><strong>Tweets</strong></td>
+    <td><strong>State</strong></td>
+    </tr>
+    {{#each tabla }}
+    <tr>
+        <td>{{this.[0]}}</td>
+        <td>{{this.[1]}}</td>
+        <td>{{this.[2]}}</td>
+        <td>{{this.[3]}}</td>
+        <td>{{this.[4]}}</td>
+        <td>{{this.[5]}}</td>
+    </tr>
+    {{/each }}
+    </table>
+    </br>
+    <a href="/newsurvey"> <button>New Survey</button> </a>
+</body>

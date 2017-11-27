@@ -1,0 +1,97 @@
+version: "2.0"
+services:
+      auth-svc:
+        build: auth-svc
+        ports:
+          - 8081:8081
+        depends_on:
+          - my_sql
+        environment:
+           MYSQL_ENDPOINT: my_sql
+           MYSQL_DATABASE: spt
+           MYSQL_USER: leofilippi
+           MYSQL_PASSWORD: Ubpingenierowin
+        # logging:
+        #    driver: gelf
+        #    options:
+        #      gelf-address: "udp://logstash:12201"
+      web:
+        build: web
+        depends_on:
+          - auth-svc
+        ports:
+          - 3000:3000
+        logging:
+           driver: gelf
+           options:
+             gelf-address: "udp://logstash:12201"
+      my_sql:
+        image: mysql:5.7
+        volumes:
+          - ./database:/var/lib/mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: Ubpingenierowin
+          MYSQL_DATABASE: spt
+          MYSQL_USER: leofilippi
+          MYSQL_PASSWORD: Ubpingenierowin
+      tw-svc:
+        build: tw-svc
+        ports:
+          - 8088:8088
+        depends_on:
+          - my_sql
+          - rabbit_mq
+        environment:
+           MYSQL_ENDPOINT: my_sql
+           MYSQL_DATABASE: spt
+           MYSQL_USER: leofilippi
+           MYSQL_PASSWORD: Ubpingenierowin
+           RABBITMQ_ENDPOINT: rabbit_mq
+        # logging:
+        #    driver: gelf
+          #  options:
+          #    gelf-address: "udp://logstash:12201"
+      rabbit_mq:
+        image: rabbitmq:3.6.11
+        # logging:
+        #    driver: gelf
+          #  options:
+          #    gelf-address: "udp://logstash:12201"
+      worker:
+        build: worker
+        depends_on:
+          - rabbit_mq
+        environment:
+            RABBITMQ_ENDPOINT: rabbit_mq
+        # logging:
+        #    driver: gelf
+          #  options:
+          #    gelf-address: "udp://logstash:12201"
+      # elasticsearch:
+      #   build: elasticsearch
+      #   ports:
+      #     - "9200:9200"
+      #     - "9300:9300"
+      #   environment:
+      #     ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      #    # xpack.security.enabled=false
+      #   volumes:
+      #     - "./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      # logstash:
+      #   build: logstash
+      #   ports:
+      #     - "12201:12201/udp"
+      #   environment:
+      #     LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      #   volumes:
+      #     - "./logstash/pipeline:/usr/share/logstash/pipeline"
+      #   depends_on:
+      #     - elasticsearch
+      # kibana:
+      #   build: kibana
+      #   ports:
+      #     - "5601:5601"
+      #   environment:
+      #     ELASTICSEARCH_URL: http://elasticsearch:9200
+      #   depends_on:
+      #     - elasticsearch

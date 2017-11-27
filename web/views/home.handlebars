@@ -1,0 +1,23 @@
+<body style="text-align: center; background: lightslategray">
+    <h1> SPT </h1>
+    {{#if err}}
+        <h2 style="text-align: center; color: firebrick">{{err}}</h2>
+        <br/>
+    {{/if}}
+    {{#if ok}}
+        <h2 style="text-align: center; color: green">{{ok}}</h2>
+        <br/>
+    {{/if}}
+    <form action="/control" method="post">
+        <label >User</label>
+        <input type="text" name="nombre" value="" />
+        <br/>
+        <label>Password</label>
+        <input type="password" name="pass" value="" />
+        <br/>
+        <br/>
+        <input type="submit" value="Login" />
+    </form>
+    <br/>
+    <a href="/registrar"> <button>Sing In</button> </a>
+</body>

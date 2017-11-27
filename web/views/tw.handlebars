@@ -1,0 +1,27 @@
+<body style="text-align: center; background: lightslategray">
+    <h1> Hashtag counter </h1>
+    {{#if err}}
+        <h2 style="text-align: center; color: firebrick">{{err}}</h2>
+        <br/>
+    {{/if}}
+    {{#if ok}}
+        <h2 style="text-align: center; color: green">{{ok}}</h2>
+        <br/>
+    {{/if}}
+    <form action="/controlTW" method="post">
+        <label>Survey name </label>
+        <input type="text" name="surveyname" value="" />
+        <br/>
+        <label>Hashtag to look for </label>
+        <input type="text" name="hash" value="" />
+        <br/>
+        <label>Time in seconds </label>
+        <input type="text" name="time" value="" />
+        <br/>
+        <br/>
+        <input type="submit" value="Count" />
+    </form>
+    <br/>
+    <a href="/dashboard"> <button>Back</button> </a>
+
+</body>
